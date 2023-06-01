@@ -317,6 +317,42 @@ describe("Month", () => {
   });
 
   describe("selecting month range", () => {
+    it('should add selecting-range-start class if month is start of new range', () => {
+      const monthComponent = mount(
+        <Month
+          selectingDate={utils.newDate("2023-06-1")}
+          endDate={utils.newDate("2023-12-1")}
+          selectsStart
+          showMonthYearPicker
+        />
+      )
+
+      const months = monthComponent.find(
+        ".react-datepicker__month-text--selecting-range-start"
+      );
+      
+      expect(months.length).to.equal(1);
+      expect(months.at(0).text()).to.eq("Jun")
+    })
+
+    it('should add selecting-range-end class if month is start of new range', () => {
+      const monthComponent = mount(
+        <Month
+          selectingDate={utils.newDate("2023-12-1")}
+          startDate={utils.newDate("2023-06-1")}
+          selectsEnd
+          showMonthYearPicker
+        />
+      )
+
+      const months = monthComponent.find(
+        ".react-datepicker__month-text--selecting-range-end"
+      );
+      
+      expect(months.length).to.equal(1);
+      expect(months.at(0).text()).to.eq("Dec")
+    })
+
     it("should add in-selecting-range class if month is between the selecting date and end date", () => {
       const monthComponent = mount(
         <Month
